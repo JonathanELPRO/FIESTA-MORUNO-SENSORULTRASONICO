@@ -36,7 +36,6 @@ void loop() {
         greenLed.blinkWithFrequency(0.1);
     }
 
-
     if (distanceMeasured > 400) {
         Serial.println(" OUT OF RANGE");
         return;
