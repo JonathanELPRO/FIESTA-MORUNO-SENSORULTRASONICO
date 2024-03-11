@@ -18,32 +18,33 @@ void loop() {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 
+    redLed.turnOff();
+    yellowLed.turnOff();
+    greenLed.turnOff();
+
+    if (distanceMeasured >= 2 && distanceMeasured <= 132) {
+        redLed.blinkWithFrequency(0.5);
+    }
+
+    if (distanceMeasured > 132 && distanceMeasured <= 266) {
+        yellowLed.turnOn();
+    } 
+    
+    if (distanceMeasured > 266 && distanceMeasured <= 400) {
+        redLed.blinkWithFrequency(0.1);
+        yellowLed.blinkWithFrequency(0.1);
+        greenLed.blinkWithFrequency(0.1);
+    }
+
+
     if (distanceMeasured > 400) {
         Serial.println(" OUT OF RANGE");
         return;
     }
    
     Serial.println("cm");
-    delay(100);
     Serial.print("Delay time ");
     Serial.print(duration.count());
     Serial.println(" milliseconds");
-    delay(100);
-    
-    
-    if (distanceMeasured > 132 && distanceMeasured <= 266) {
-        yellowLed.turnOn();
-    } else {
-        yellowLed.turnOff();
-    }
 
-    if (distanceMeasured >= 2 && distanceMeasured <= 132) {
-        redLed.blinkWithFrequency(0.5);
-    }
-
-    if (distanceMeasured > 266 && distanceMeasured <= 400) {
-        redLed.blinkWithFrequency(0.1);
-        yellowLed.blinkWithFrequency(0.1);
-        greenLed.blinkWithFrequency(0.1);
-    }
 }
